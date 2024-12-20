@@ -1,20 +1,20 @@
 <!-- Load in the bib.json file as a page resource -->
 {{ $bibentries := "" }}
-{{ $bibfilePath := "bib.json" }}
+{{ $bibfilePath := site.Params.bibliography | default "bib.json" }}
 {{ with resources.Get $bibfilePath }}
     {{ with .Err }}
-        {{ errorf "Could not parse bib.json file at %q. Encountered the following error:" $bibfilePath . }}
+        {{ errorf "Could not parse bibliography file at %q. Encountered the following error:" $bibfilePath . }}
     {{ else }}
         {{ $bibentries = . | transform.Unmarshal }}
     {{ end }}
 {{ else with .Page.Parent.Resources.Get $bibfilePath }}
     {{ with .Err }}
-        {{ errorf "Could not parse bib.json file at %q. Encountered the following error:" $bibfilePath . }}
+        {{ errorf "Could not parse bibliography file at %q. Encountered the following error:" $bibfilePath . }}
     {{ else }}
         {{ $bibentries = . | transform.Unmarshal }}
     {{ end }}
 {{ else }}
-    {{ errorf "Could not find bib.json file at %q" $bibfilePath }}
+    {{ errorf "Could not find file at %q" $bibfilePath }}
 {{ end }}
 
 <!-- Parse the bib.json file -->
@@ -49,7 +49,7 @@
     {{ end }}
 
 {{ else }}
-    {{- errorf "No valid bib.json file was found at position: %q" .Page.File.Dir -}}
+    {{- errorf "No valid bibliography file was found at: %q" $bibfilePath -}}
 {{ end }}
 
 {{ return $bibliography }}
