@@ -20,11 +20,11 @@
 {{- else -}}
 
 {{- with $person.given -}}
-{{- $displayedName = printf "%s%s. " $displayedName (substr . 0 1) -}}
+{{- $displayedName = printf "%s%s " $displayedName . -}}
 {{- end -}}
 
 {{- with $person.secondInitial -}}
-{{- $displayedName = printf "%s%s. " $displayedName (substr . 0 1) -}}
+{{- $displayedName = printf "%s%s " $displayedName . -}}
 {{- end -}}
 
 {{- with $person.family -}}
