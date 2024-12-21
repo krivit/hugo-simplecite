@@ -17,6 +17,8 @@ https://ieee-dataport.org/sites/default/files/analysis/27/IEEE%20Citation%20Guid
 {{- partial "styles/ieee/types/conference-paper" $bibentry -}}
 {{- else if eq $bibentry.type "webpage" -}}
 {{- partial "styles/ieee/types/webpage" $bibentry -}}
+{{- else if eq $bibentry.type "report" -}}
+{{- partial "styles/ieee/types/report" $bibentry -}}
 {{- else -}}
 {{- warnf "Bibliography type '%s' is not implemented. Defaulting to type 'book': %s" $bibentry.type $context.Position -}}
 {{- partial "styles/ieee/types/book" $bibentry -}}
