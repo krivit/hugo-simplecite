@@ -1,8 +1,13 @@
 {{- if .DOI -}}
 doi:<a class="hugo-simplecite-doi-hyperlink" rel="noopener" target="_blank" href="https://doi.org/{{ .DOI }}">{{ .DOI }}</a>
 {{- else if .URL -}}
-. <a class="hugo-simplecite-url-hyperlink" rel="noopener" target="_blank" href="{{ .URL }}">{{ .URL }}</a>
+{{- if strings.Contains .URL "arxiv.org/" -}}
+{{- $eprint := index (findRE `[0-9][0-9][0-9]+\.[0-9][0-9][0-9]+v?[0-9]*` .URL 1) 0 -}}
+arXiv:<a class="hugo-simplecite-url-hyperlink" rel="noopener" target="_blank" href="{{ .URL }}">{{- $eprint -}}</a>
+{{- else -}}
+ &nbsp;<a class="hugo-simplecite-url-hyperlink" rel="noopener" target="_blank" href="{{ .URL }}">[URL]</a>
 {{- with partial "styles/ieee/parts/accessed" . -}}
 &#32;{{ . }}
+{{- end -}}
 {{- end -}}
 {{- end -}}
